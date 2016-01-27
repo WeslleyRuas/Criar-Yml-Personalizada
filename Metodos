@@ -1,0 +1,62 @@
+#Para Usar Exemplo#
+
+getconfig = GetConfig("<nome-da-yml>").getString("<nome-da-String>")
+setconfig = GetConfig("<nome-da-yml>").setString("<nome-da-String>")
+saveconfig = SaveConfig("<nome-da-yml>");
+createconfig = CreateConfig("<nome-da-yml>");
+
+
+#primeiro criar uma hashmap global privada!#
+
+HashMap<String,FileConfiguration> Configs = new HashMap<String,FileConfiguration>();
+
+#Agora adicionar esses metodos ao seu codigo#
+
+public void CreateConfig(String Name){
+	if (!getDataFolder().exists()) {
+		getDataFolder().mkdir();
+	    }
+		File configz = new File(getDataFolder(), Name+".yml");
+		if(!configz.exists()){
+			if(this.getResource(Name+".yml") != null){
+				saveResource(Name+".yml", false);
+			}
+			else
+			{
+				try {
+					configz.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+public FileConfiguration GetConfig(String Name){
+		if (!getDataFolder().exists()) {
+			getDataFolder().mkdir();
+	    }
+		
+		File configz = new File(getDataFolder(), Name+".yml");
+        
+		if(!configz.exists()){
+			saveResource(Name+".yml", false);
+		}
+		
+		
+		if(!Configs.containsKey(Name)){
+			Configs.put(Name, YamlConfiguration.loadConfiguration(configz));
+		}
+		
+		return Configs.get(Name);
+	}
+public void SaveConfig(String Name){
+		if(Configs.containsKey(Name)){
+			File configz = new File(getDataFolder(), Name+".yml");
+			try {
+				Configs.get(Name).save(configz);
+				Configs.remove(Name);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
