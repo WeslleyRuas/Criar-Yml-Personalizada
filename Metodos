@@ -1,7 +1,7 @@
 #Para Usar Exemplo#
 
 getconfig = GetConfig("<nome-da-yml>").getString("<nome-da-String>")
-setconfig = GetConfig("<nome-da-yml>").setString("<nome-da-String>")
+setconfig = GetConfig("<nome-da-yml>").set("<nome-da-linha-na-config>", "<nome-do-que-voce-vai-adicionar-nele>")
 saveconfig = SaveConfig("<nome-da-yml>");
 createconfig = CreateConfig("<nome-da-yml>");
 
